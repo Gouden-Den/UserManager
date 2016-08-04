@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7dtd">
+	
+<struts>
+	<package name="common" extends="struts-default" namespace="/common">
+		<interceptors>
+			<interceptor name="initdata" class="interceptor.GetAllUserInterceptor"></interceptor>
+			<interceptor-stack name="init_interceptor">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="initdata"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<action name="login" class="action.UserLoginAction">
+			<result>/index.jsp</result>
+			<result name="input">/login.jsp</result>
+			<interceptor-ref name="init_interceptor"/>
+		</action>
+		 <action name="exit" class="action.UserExitAction"><!-- 退出系统Action -->
+            <result>/login.jsp</result>
+       </action>   
+		<action name="scan" class="action.UserScanAction">
+			<result>/userinfo.jsp</result>
+		</action>
+		<action name="getallusers" class="action.GetAllUsersAction">
+			<result name="userselect">/main.jsp</result>
+			<result name="adminselect">/adminselectuser.jsp</result>
+		</action>
+		<action name="modifydispatch" class="action.ModifyDispatchAction">
+			<result name="usermodify">/usermodify.jsp</result>
+			<result name="othersmodify">/othersmodify.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		<action name="modifyuser" class="action.UserModifyAction">
+			<result>//modify_user_success.jsp</result>
+			<result name="error">/modify_user_error.jsp</result>
+		</action>
+	</package>
+	<package name="admin" extends="struts-default" namespace="/admin"> 
+		<action name="deleteruser" class="action.AdminDeleteUserAction">
+			<result name="success">/failure.jsp</result>
+		</action>
+		<action name="adduser" class="action.AddUserAction">
+			<result>/adduser_success.jsp</result>
+			<result name="input">/AddUser.jsp</result>
+		</action>
+		<action name="selectalladmin" class="action.AdminSelectAllAdmins">
+			<result name="smalladmin">/showadmins.jsp</result>
+			<result name="bigadmin">/selectAllAdmins.jsp</result>
+			<result name="failure">/failure.jsp</result>
+		</action>
+		<action name="selectnewuser" class="action.AdminFindNewUsersAction">
+			<result>/newuserlist.jsp</result>
+			<result name="failure">/failure.jsp</result>
+		</action>	
+		<action name="deleteadmin" class="action.AdminDeleteAdminAction">
+			<result name="success">/failure.jsp</result>		
+		</action>	
+		<action name="deleteuser" class="action.AdminDeleteUserAction">
+			<result name="success">/failure.jsp</result>		
+		</action>
+		<action name="scan" class="action.AdminScanAction"><!--查看管理员Action返回个人信息页面  -->
+	         <result>/userinfo.jsp</result>
+	      	 <result name="failure">/failure.jsp</result>
+     	</action>
+     	<action name="getdata" class="action.AdminGetDataAction"><!--查看管理员Action返回修改页面  -->
+         	<result>/adminmodify.jsp</result>
+     	</action>
+     	 <action name="modifyadmin" class="action.AdminModifyAction"><!--修该管理员Action  -->
+         	<result>/modify_success.jsp</result>
+    	 </action>
+		<action name="addadmin" class="action.AddAdminAction">
+			<result>/addadmin_success.jsp</result>
+			<result name="input">/AddAdmin.jsp</result>
+		</action>
+		 <action name="ifcanadd" class="action.IfCanAddUser">
+	         <result>/AddUser.jsp</result>
+	         <result name="failure">/failure.jsp</result>
+     	</action>
+     	 <action name="ifcanaddadmin" class="action.IfCanAddAdmin">
+	         <result>/AddAdmin.jsp</result>
+	         <result name="failure">/failure.jsp</result>
+     	</action>
+	</package>
+</struts>
